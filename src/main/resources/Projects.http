@@ -1,0 +1,146 @@
+GET http://localhost:8081/api/projects
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/projects?orderBy=startDate
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/projects?orderBy=startDate&OrderType=desc
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/projects?orderBy=budget
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/projects?nameLike=e2
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/projects?nameLike=e2&minBudget=15000000
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/projects?startBefore=2022-07-30&minBudget=15000000
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/projects?startAfter=2021-07-30&startBefore=2022-07-30
+Content-Type: application/json
+
+###
+PUT http://localhost:8081/api/projects/update/4
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Covid-19",
+  "startDate": "2022-07-01",
+  "budget": 95
+}
+
+###
+PUT http://localhost:8081/api/projects/update/4
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Covid-2022"
+}
+
+###
+PUT http://localhost:8081/api/projects/update/4
+Content-Type: application/json
+Accept: application/json
+
+{
+  "startDate": "2022-07-15"
+}
+
+###
+PUT http://localhost:8081/api/projects/update/4
+Content-Type: application/json
+Accept: application/json
+
+{
+  "budget": 295
+}
+
+###
+POST http://localhost:8081/api/projects/3/add-group
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Neuroendokrinológia",
+  "founded": "2019-01-11",
+  "countOfResearchers": 15,
+  "location": "ÁOK_RÉGI_ÉPÜLET",
+  "budget": 18
+}
+
+###
+POST http://localhost:8081/api/projects/3/add-group
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Neuroendokrinológi",
+  "founded": "2019-01-11",
+  "countOfResearchers": 15,
+  "location": "ÁOK_RÉGI_ÉPÜLET",
+  "budget": 18
+}
+
+###
+POST http://localhost:8081/api/projects/3/add-group
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Farmakológia",
+  "founded": "2017-01-01",
+  "countOfResearchers": 34,
+  "location": "ÁOK_RÉGI_ÉPÜLET",
+  "budget": 18
+}
+
+###
+POST http://localhost:8081/api/projects/11/add-group
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Nano-Bio Imaging Core Facility",
+  "founded": "2019-07-11",
+  "countOfResearchers": 3,
+  "location": "ÁOK_ÚJ_ÉPÜLET",
+  "budget": 21
+}
+
+###
+GET http://localhost:8081/api/projects/12/add-group?groupId=19
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/projects/10/add-group?groupId=12
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/projects/10/add-group?groupId=14
+Content-Type: application/json
+###
+GET http://localhost:8081/api/projects/10/delete-group?groupId=14
+Content-Type: application/json
+
+###
+DELETE http://localhost:8081/api/projects/delete/14
+Content-Type: application/json
+Accept: application/json###
+###
+
+GET http://localhost:8081/api/projects/10
+Content-Type: application/json
+
+###

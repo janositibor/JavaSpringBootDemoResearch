@@ -1,0 +1,95 @@
+GET http://localhost:8081/api/research-groups
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/research-groups?nameLike=neur
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/research-groups?nameLike=neur&minCountOfResearchers=14
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/research-groups?nameLike=neur&minCountOfResearchers=14&orderBy=founded&OrderType=desc
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/research-groups?minBudget=15
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/research-groups?orderBy=budget
+Content-Type: application/json
+
+###
+GET http://localhost:8081/api/research-groups?orderBy=budget&OrderType=desc
+Content-Type: application/json
+
+###
+DELETE http://localhost:8081/api/research-groups/delete/22
+Content-Type: application/json
+Accept: application/json
+
+###
+GET http://localhost:8081/api/research-groups/12
+Content-Type: application/json
+
+###
+PUT http://localhost:8081/api/research-groups/update/11
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Szövettani Mikroszkópia",
+  "founded": "2020-12-31",
+  "countOfResearchers": 10,
+  "location": "BIOFIZIKA",
+  "budget": 11
+}
+
+###
+PUT http://localhost:8081/api/research-groups/update/11
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Sejtes Mikroszkópia"
+}
+
+###
+PUT http://localhost:8081/api/research-groups/update/11
+Content-Type: application/json
+Accept: application/json
+
+{
+  "founded": "2019-12-01"
+}
+
+###
+PUT http://localhost:8081/api/research-groups/update/11
+Content-Type: application/json
+Accept: application/json
+
+{
+  "countOfResearchers": 9
+}
+
+###
+PUT http://localhost:8081/api/research-groups/update/11
+Content-Type: application/json
+Accept: application/json
+
+{
+  "location": "SZENTÁGOTHAI_KUTATÓKÖZPONT"
+}
+
+###
+PUT http://localhost:8081/api/research-groups/update/11
+Content-Type: application/json
+Accept: application/json
+
+{
+  "budget": -1
+}
+
+###
