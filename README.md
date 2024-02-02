@@ -97,7 +97,7 @@ növekvő vagy csökkenő sorrendben (`OrderType`) lehet végrehajtani.
 
 ## Technológiai részletek
 
-* Klasszikus háromrétegű alkalmazást valósítottam meg Java Spring backenddel és RESTful webszolgáltatásokkal amely MariaDB adatbázisban tárolja az adatokat.
+* Klasszikus háromrétegű alkalmazást valósítottam meg Java Spring backenddel és RESTful webszolgáltatásokkal amely MariaDB adatbázisban tárolja az adatokat. 
 * Az SQL adatbázist kezelő réteget (`Repository`) Spring Data JPA-val valósítottam meg.
 * Az adatbázis inicializálását `Flyway` script végzi.
 * Az üzleti logika réteg megvalósítása a `Service` osztály feladata.
@@ -108,3 +108,4 @@ növekvő vagy csökkenő sorrendben (`OrderType`) lehet végrehajtani.
 * `WebClient`-tel végeztem az integrációs tesztlést, ami a kód sorainak 82%-át lefedi.
 * További manuális tesztelést a *.http fileok tesznek lehetővé
 * Az alkalmazás futtatásához Docker hálózatot hoztam létre, amely tartalmazza a konténereket amelyekben a MariaDB adatbázis és a hozzá kapcsolodó alkalmazás futtnak.
+* A Continous Integration (CI) A GitHub WorkFlows segítségével valósítottam meg.
