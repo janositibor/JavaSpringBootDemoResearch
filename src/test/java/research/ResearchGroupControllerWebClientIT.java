@@ -94,7 +94,8 @@ public class ResearchGroupControllerWebClientIT {
 
         ResearchGroupDto result=webTestClient
                 .get()
-                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/{id}").build(created.getId()))
+//                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/{id}").build(created.getId()))
+                .uri("/api/research-groups/{id}",created.getId())
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(ResearchGroupDto.class)
@@ -249,7 +250,8 @@ public class ResearchGroupControllerWebClientIT {
     void testGetResearchGroupById(){
         ResearchGroupDto result=webTestClient
                 .get()
-                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/{id}").build(researchGroupDto.getId()))
+//                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/{id}").build(researchGroupDto.getId()))
+                .uri("/api/research-groups/{id}",researchGroupDto.getId())
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(ResearchGroupDto.class)
@@ -289,14 +291,16 @@ public class ResearchGroupControllerWebClientIT {
         updateResearchGroupCommand.setName("FemtoSzekundumos-Lézeres Csoport");
         webTestClient
                 .put()
-                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/update/{id}").build(researchGroupDto.getId()))
+//                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/update/{id}").build(researchGroupDto.getId()))
+                .uri("/api/research-groups/update/{id}",researchGroupDto.getId())
                 .bodyValue(updateResearchGroupCommand)
                 .exchange()
                 .expectStatus().isOk();
 
         ResearchGroupDto result=webTestClient
                 .get()
-                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/{id}").build(researchGroupDto.getId()))
+//                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/{id}").build(researchGroupDto.getId()))
+                .uri("/api/research-groups/{id}",researchGroupDto.getId())
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(ResearchGroupDto.class)
@@ -319,7 +323,8 @@ public class ResearchGroupControllerWebClientIT {
 
         Problem result=webTestClient
                 .put()
-                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/update/{id}").build(researchGroupDto.getId()))
+//                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/update/{id}").build(researchGroupDto.getId()))
+                .uri("/api/research-groups/update/{id}",researchGroupDto.getId())
                 .bodyValue(updateResearchGroupCommand)
                 .exchange()
                 .expectStatus().isBadRequest()
@@ -338,7 +343,8 @@ public class ResearchGroupControllerWebClientIT {
     void testDeleteResearchGroup(){
         webTestClient
                 .delete()
-                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/delete/{id}").build(researchGroupDto.getId()))
+//                .uri(uriBuilder -> uriBuilder.path("/api/research-groups/delete/{id}").build(researchGroupDto.getId()))
+                .uri("/api/research-groups/delete/{id}",researchGroupDto.getId())
                 .exchange()
                 .expectStatus().isNoContent();
 

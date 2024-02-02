@@ -2,14 +2,12 @@
 
 ## Feladat ismertetése
 
-A választható feladatok közül "kutatások nyilvántartása" című projektet választottam.
- A megvalósított alkalmazás projektek és kutatócsoportok kapcsolatát kezeli. Azért választottam ezt mert a projektek és a kutatócsoportok közt m-n a természetes kapcsolat ami viszonylag gyakran fordul elő a valóságban is. Emiatt bízom, benne, hogy a feladat elkészítésével élesben előforduló problémákra és feladatokra készülök fel.
+A megvalósított alkalmazás projektek és kutatócsoportok kapcsolatát kezeli.
 
 Az alkalmazás Java Spring Boot keretrendszerrel megvalósított backend, amely a klaszikus három réteggel rendelkezik:
 - a külvilággal a controller rétegben megvalósított RESTful webszolgáltatás végpontjain keresztül kommunikál
 - a MariaDB adatbázissal a Spring Data JPA-val megvalósított repository réteg tartja a kapcsolatot
 - a kettő közt helyezkedik el az üzleti logikát megvalósító service réteg
-
 
 ## Felépítés
 
