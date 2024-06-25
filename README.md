@@ -1,111 +1,111 @@
-# Demo project
+# Demo Project
 
-## Feladat ismertetése
+## Task Description
 
-A megvalósított alkalmazás projektek és kutatócsoportok kapcsolatát kezeli.
+The implemented application manages the relationship between projects and research groups.
 
-Az alkalmazás Java Spring Boot keretrendszerrel megvalósított backend, amely a klaszikus három réteggel rendelkezik:
-- a külvilággal a controller rétegben megvalósított RESTful webszolgáltatás végpontjain keresztül kommunikál
-- a MariaDB adatbázissal a Spring Data JPA-val megvalósított repository réteg tartja a kapcsolatot
-- a kettő közt helyezkedik el az üzleti logikát megvalósító service réteg
+The application is a Java Spring Boot framework backend, featuring the classic three-layer architecture:
+- It communicates with the external world through RESTful web service endpoints implemented in the controller layer.
+- It connects to the MariaDB database through the repository layer implemented with Spring Data JPA.
+- The service layer, which implements business logic, is situated between these two layers.
 
-## Felépítés
+## Structure
 
 ### ResearchGroup
 
-A `ResearchGroup` entitás a következő attribútumokkal rendelkezik:
+The `ResearchGroup` entity has the following attributes:
 
 * id (Long)
-* name (String, nem Blank)
-* founded (LocalDate, nem null, 1899-12-31 és az aktuális dátum közti értéket vár)
-* countOfResearchers (int, pozitív)
-* location (Location enum típusú)
-* budget (int, nem negatív, pénzügyi keret millió HUF-ban)
-* projectSet (Set, a projektek halmaza amiben részt vesz a csoport)
+* name (String, not Blank)
+* founded (LocalDate, not null, expected value between 1899-12-31 and the current date)
+* countOfResearchers (int, positive)
+* location (Location enum type)
+* budget (int, non-negative, financial budget in million HUF)
+* projectSet (Set, the set of projects in which the group participates)
 
-Végpontok: 
+Endpoints:
 
-| HTTP metódus | Végpont                 			  | Leírás                                                        |
-| ------------ | ------------------------------------ | ------------------------------------------------------------- |
-| POST         | `"/api/research-groups"`        	  | létrehozza a kutatócsoportot                                  |
-| GET          | `"/api/research-groups"`        	  | rendezve adja vissza az összes vagy a szűrt kutatócsoportokat |
-| GET          | `"/api/research-groups/{id}"`   	  | lekérdez egy kutatócsoportot `id` alapján                     |
-| PUT          | `"/api/research-groups/update/{id}"` | frissíti a kutatócsoport adatait                              |
-| DELETE       | `"/api/research-groups/delete/{id}"` | törli a kutatócsoportot                                       |
+| HTTP Method | Endpoint                 			 | Description                                     |
+| ----------- | ------------------------------------ | ----------------------------------------------- |
+| POST        | `"/api/research-groups"`        	 | Creates a research group                        |
+| GET         | `"/api/research-groups"`        	 | Returns all or filtered research groups, sorted |
+| GET         | `"/api/research-groups/{id}"`   	 | Retrieves a research group by `id`              |
+| PUT         | `"/api/research-groups/update/{id}"` | Updates the details of a research group         |
+| DELETE      | `"/api/research-groups/delete/{id}"` | Deletes a research group                        |
 
-Kutatócsoport létrehozásakor ellenőrzi a alkalmazás, hogy az érkező adatok érvényesek-e. Ha ez nem teljesül 400-as Bad Request kóddal tér vissza.
-Ha a kutatócsoport már létezik 409-es Conflict hibaüzenetet ad a alkalmazás.
- 
-A kutatócsoportok szűréséhez query paraméterek használhatóak.
-Szűrni a következő paraméterek tetszőleges kombinációjával lehet:
-* nameLike (String, részleges egyezés)
+When creating a research group, the application checks if the incoming data is valid. If not, it returns a 400 Bad Request code.
+If the research group already exists, the application returns a 409 Conflict error.
+
+Query parameters can be used to filter research groups.
+Filtering can be done with any combination of the following parameters:
+* nameLike (String, partial match)
 * minCountOfResearchers (int)
 * minBudget (int)
 
-Az eredmények rendezését (`orderBy`) a következő attribútumok alapján
+Sorting results (`orderBy`) can be performed based on the following attributes:
 * id
 * name
 * founded
 * countOfResearchers
 * budget
-növekvő vagy csökkenő sorrendben (`OrderType`) lehet végrehajtani.
+in ascending or descending order (`OrderType`).
 
-### Project 
+### Project
 
-A `Project ` entitás a következő attribútumokkal rendelkezik:
+The `Project` entity has the following attributes:
 
 * id (Long)
-* name (String, nem Blank)
-* startDate (LocalDate, nem null, 1899-12-31 és 2100-12-31 közti értéket vár)
-* budget (int, nem negatív, pénzügyi keret millió HUF-ban)
-* researchGroupSet (Set, a projekben résztvevő csoportok halmaza)
+* name (String, not Blank)
+* startDate (LocalDate, not null, expected value between 1899-12-31 and 2100-12-31)
+* budget (int, non-negative, financial budget in million HUF)
+* researchGroupSet (Set, the set of groups participating in the project)
 
-A `Project` és a `ResearchGroup` entitások között kétirányú, m-n kapcsolat van.
+There is a bidirectional many-to-many relationship between `Project` and `ResearchGroup` entities.
 
-Végpontok:
+Endpoints:
 
-| HTTP metódus | Végpont                 			 | Leírás                                                  |
-| ------------ | ----------------------------------- | ------------------------------------------------------- |
-| POST         | `"/api/projects"`        			 | létrehoz egy projektet                                  |
-| GET          | `"/api/projects"`        			 | rendezve adja vissza az összes vagy a szűrt projekteket |
-| GET          | `"/api/projects/{id}"`   			 | lekérdez egy projektet `id` alapján                     |
-| PUT          | `"/api/projects/update/{id}"`   	 | frissíti a projekt adatait                              |
-| POST         | `"/api/projects/{id}/add-group"`    | új kutatócsoportot add a projekthez                     |
-| GET          | `"/api/projects/{id}/add-group"`    | már létező kutatócsoportot add a projekthez             |
-| GET          | `"/api/projects/{id}/delete-group"` | kutatócsoport eltávolítása a projektből                 |
-| DELETE       | `"/api/projects/delete/{id}"`   	 | törli a projektet                                       |
+| HTTP Method | Endpoint                 		    | Description                                    |
+| ----------- | ----------------------------------- | ---------------------------------------------- |
+| POST        | `"/api/projects"`        			| Creates a project                              |
+| GET         | `"/api/projects"`        			| Returns all or filtered projects, sorted       |
+| GET         | `"/api/projects/{id}"`   			| Retrieves a project by `id`                    |
+| PUT         | `"/api/projects/update/{id}"`   	| Updates the details of a project               |
+| POST        | `"/api/projects/{id}/add-group"`    | Adds a new research group to the project       |
+| GET         | `"/api/projects/{id}/add-group"`    | Adds an existing research group to the project |
+| GET         | `"/api/projects/{id}/delete-group"` | Removes a research group from the project      |
+| DELETE      | `"/api/projects/delete/{id}"`   	| Deletes a project                              |
 
 
-Projekt létrehozásakor ellenőrzi a alkalmazás, hogy az érkező adatok érvényesek-e. Ha ez nem teljesül 400-as Bad Request kóddal tér vissza.
-Ha a projekt már létezik 409-es Conflict hibaüzenetet ad a alkalmazás.
+When creating a project, the application checks if the incoming data is valid. If not, it returns a 400 Bad Request code.
+If the project already exists, the application returns a 409 Conflict error.
 
-Kutatócsoport létrehozásakor figyeli, hogy az adatok érvényesek-e, illetve hogy a csoport nem szerepel-e már az adatbázisban.
- 
-A kutatócsoportokat szűréséhez query paraméterek használhatóak.
-Szűrni a következő paraméterek tetszőleges kombinációjával lehet:
-* nameLike (String, részleges egyezés)
+When creating a research group, the application checks if the data is valid and whether the group already exists in the database.
+
+Query parameters can be used to filter projects.
+Filtering can be done with any combination of the following parameters:
+* nameLike (String, partial match)
 * startBefore (LocalDate)
 * startAfter (LocalDate)
 * minBudget (int)
 
-Az eredmények rendezését (`orderBy`) a következő attribútumok alapján
+Sorting results (`orderBy) can be performed based on the following attributes:
 * id
 * name
 * startDate
 * budget
-növekvő vagy csökkenő sorrendben (`OrderType`) lehet végrehajtani.
+in ascending or descending order (`OrderType`).
 
-## Technológiai részletek
+Technological Details
 
-* Klasszikus háromrétegű alkalmazást valósítottam meg Java Spring backenddel és RESTful webszolgáltatásokkal amely MariaDB adatbázisban tárolja az adatokat. 
-* Az SQL adatbázist kezelő réteget (`Repository`) Spring Data JPA-val valósítottam meg.
-* Az adatbázis inicializálását `Flyway` script végzi.
-* Az üzleti logika réteg megvalósítása a `Service` osztály feladata.
-* A REST szolgáltatásokat a Controller réteg valósítja meg. 
-* A hibák kezelésére saját kivételeket használok (RFC 7807 Problem Details for HTTP APIs, szabványnak megfelelő) amelyeket a a Problem nevű third party library segítségével hozok létre
-* Az adatokat már a CreateCommand-okban `Bean Validation` segítségével ellenőrzöm
-* `Swagger UI` hozza létre az interaktív dokumentációs felületet
-* `WebClient`-tel végeztem az integrációs tesztlést, ami a kód sorainak 82%-át lefedi.
-* További manuális tesztelést a *.http fileok tesznek lehetővé
-* Az alkalmazás futtatásához Docker hálózatot hoztam létre, amely tartalmazza a konténereket amelyekben a MariaDB adatbázis és a hozzá kapcsolodó alkalmazás futtnak.
-* A Continous Integration (CI) A GitHub WorkFlows segítségével valósítottam meg.
+* I implemented a classic three-layer application with a Java Spring backend and RESTful web services that store data in a MariaDB database.
+* The SQL database management layer (Repository) is implemented with Spring Data JPA.
+* Database initialization is handled by Flyway scripts.
+* The business logic layer is implemented in the Service class.
+* REST services are implemented in the Controller layer.
+* Custom exceptions are used for error handling (compliant with RFC 7807 Problem Details for HTTP APIs), created using the Problem third-party library.
+* Data validation is performed in the CreateCommands using Bean Validation.
+* Swagger UI generates the interactive documentation interface.
+* Integration testing was conducted with WebClient, covering 82% of the code lines.
+* Additional manual testing is facilitated by *.http files.
+* To run the application, I created a Docker network that includes containers running the MariaDB database and the associated application.
+* Continuous Integration (CI) is implemented with GitHub Workflows.
