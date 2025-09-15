@@ -16,7 +16,7 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn verify -Pfailsafe
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: Research-demo
           path: target/*.jar
